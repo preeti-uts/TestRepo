@@ -1,0 +1,5 @@
+FORMAT REQUISITE WAIVER,,,,,,,,,,,,
+stu_id,spk_cd,wvr_no,wvr_spk_ver,wvr_reason_cd,wvr_effct_dt,wvr_exp_dt,wvr_by,wvr_by_dt,wvr_allow_times,wvr_par_spk_cd,wvr_par_spk_ver_no,wvr_notes
+13560216,96124,1,1,340,01/05/2023,30/05/2023,159642,15/05/2023,3,C04386,1,TEST1
+12205249,31265,7,3,340,08/04/18,15/04/18,133077,08/04/18,5,C10345,1,TEST2
+10720643,24108,,,340,,,,,3,,,TEST3
