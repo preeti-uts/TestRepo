@@ -22,9 +22,9 @@ jobs:
 # Test script / project variables
     env:
       ConsoleRunnerVersion: 3.17.0 
-      Solution_Name: Rep2.sln
-      Test_Project_Path: Rep2
-      Test_Project_DLL: Rep2.dll
+      Solution_Name: CanvasAutomationTests.sln
+      Test_Project_Path: CanvasAutomationTests
+      Test_Project_DLL: CanvasAutomationTests.dll
       tz: Australia/Sydney
     steps:
     - name: Checkout
@@ -49,8 +49,8 @@ jobs:
       run: nuget install NUnit.ConsoleRunner -Version ${{env.ConsoleRunnerVersion}} -DirectDownload -OutputDirectory .
       
     - name: Run UnitTests
-      run: ./NUnit.ConsoleRunner.${{env.ConsoleRunnerVersion}}/tools/nunit3-console.exe .\${{env.Test_Project_Path}}\bin\Debug\${{env.Test_Project_DLL}} --result=".\reporting\TestResult.xml" --trace=verbose --test=${{inputs.test_scripts}}
-      #run: ./NUnit.ConsoleRunner.${{env.ConsoleRunnerVersion}}/tools/nunit3-console.exe .\${{env.Test_Project_Path}}\bin\Debug\net48\${{env.Test_Project_DLL}} --result=".\reporting\TestResult.xml" --trace=verbose --test=${{inputs.test_scripts}}
+      run: ./NUnit.ConsoleRunner.${{env.ConsoleRunnerVersion}}/tools/nunit3-console.exe .\${{env.Test_Project_Path}}\bin\Debug\${{env.Test_Project_DLL}} --result=".\reporting\TestResult.xml" --trace=verbose 
+      #run: ./NUnit.ConsoleRunner.${{env.ConsoleRunnerVersion}}/tools/nunit3-console.exe .\${{env.Test_Project_Path}}\bin\Debug\net48\${{env.Test_Project_DLL}} --result=".\reporting\TestResult.xml" --trace=verbose 
 
     - name: Upload File as Artifact
       uses: actions/upload-artifact@v4
