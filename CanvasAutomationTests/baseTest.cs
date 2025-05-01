@@ -7,17 +7,18 @@ using System.Threading.Tasks;
 using NUnit.Framework.Interfaces;
 using NUnit.Framework;
 using OpenQA.Selenium;
-using selenium_framework;
 using AventStack.ExtentReports;
 using AventStack.ExtentReports.Reporter;
 using AventStack.ExtentReports.Model;
+using OpenQA.Selenium.Chrome;
 
-namespace CanvasAutomationTests
+namespace ExtentReport
 {
-    public class baseTest : Selenium_Framework
+    public class baseTest
     {
         public ExtentReports extent;
         public ExtentTest test;
+        ChromeDriver driver;
 
         //report file
         [OneTimeSetUp]
@@ -38,8 +39,17 @@ namespace CanvasAutomationTests
             //start the test
             test = extent.CreateTest(TestContext.CurrentContext.Test.Name);
             //Intialise the browser
-            initDriver(true, "");
+            driver = new ChromeDriver();
+            driver.Manage().Window.Maximize();
         }
+
+        [Test]
+        public void launchBrowser()
+        {
+            //launch the browser and navigate to the URL
+            driver.Navigate().GoToUrl("https://google.com"); // Replace with actual URL
+        }
+   
 
         [TearDown]
         public void AfterTest()
