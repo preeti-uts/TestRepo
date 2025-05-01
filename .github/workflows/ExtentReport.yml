@@ -22,9 +22,9 @@ jobs:
 # Test script / project variables
     env:
       ConsoleRunnerVersion: 3.17.0 
-      Solution_Name: CanvasAutomationTests.sln
+      Solution_Name: ExtentReportDummyRepo.sln
       Test_Project_Path: CanvasAutomationTests
-      Test_Project_DLL: CanvasAutomationTests.dll
+    
       tz: Australia/Sydney
     steps:
     - name: Checkout
