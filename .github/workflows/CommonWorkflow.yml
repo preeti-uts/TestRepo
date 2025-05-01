@@ -27,7 +27,7 @@ jobs:
     env:
       ConsoleRunnerVersion: 3.17.0
       # TestFolder_Name: ${{inputs.test_folder_name}}    
-      Solution_Name: CanvasAutomationTests.sln
+      Solution_Name: ExtentReportDummyRepo.sln
       Test_Project_Path: CanvasAutomationTests
       tz: Australia/Sydney
       
