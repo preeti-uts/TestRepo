@@ -28,8 +28,7 @@ jobs:
       ConsoleRunnerVersion: 3.17.0
       # TestFolder_Name: ${{inputs.test_folder_name}}    
       Solution_Name: CanvasAutomationTests.sln
-      Test_Project_Path: ExtentReportTestRepo
-  
+      Test_Project_Path: CanvasAutomationTests
       tz: Australia/Sydney
       
     steps:
@@ -66,3 +65,10 @@ jobs:
       with:
         name: ReportArtifact
         path: .\${{env.Test_Project_Path}}\bin\Debug\Report
+        
+    - name: Upload Extent Report
+      if: always()
+      uses: actions/upload-artifact@v4
+      with:
+        name: ExtentReport
+        path: .\${{env.Test_Project_Path}}/index.html
