@@ -54,7 +54,7 @@ jobs:
       continue-on-error: true
 
     - name: List test-output directory
-      run: ls -al test-output || echo "test-output directory does not exist"
+      run: dir test-output || echo "test-output directory does not exist"
 
     - name: Find all HTML files
       if: always()
