@@ -53,46 +53,24 @@ jobs:
       
       continue-on-error: true
 
-    - name: List Reports directory
-      run: |
-        if (Test-Path ".\CanvasAutomationTests\Reports") {
-        Get-ChildItem -Path ".\CanvasAutomationTests\Reports" -Recurse
-        } else {
-        Write-Output "Reports directory does not exist"
-        }
-
-    - name: Find all HTML files
+    - name: Debug - List .html report files
       if: always()
       run: |
-        find . -type f -name "*.html" > html-files.txt
+          echo "Searching for TestReport.html"
+          Get-ChildItem -Path . -Recurse -Filter TestReport.html
+      shell: pwsh
 
-    - name: Upload File as Artifact
+    - name: Upload Test Report
       if: always()
       uses: actions/upload-artifact@v4
       with:
-        name: ReportArtifact
-        path: \Report\TestReport.html
-
-    # - name: Upload screenshot as Artifact
-    #   if: always()
-    #   uses: actions/upload-artifact@v4
-    #   with:
-    #     name: ReportArtifact
-    #     path: \Report\Screenshots
-        
+          name: ReportArtifact
+          path: '**/TestReport.html'
+          
     - name: Upload Screenshot to GitHub log if any error occured
       if: always()
       uses: actions/upload-artifact@v4
       with:
         name: screenshot
-        path: C:\Screenshots\*.png  
-
-    - name: Upload File as Artifact
-      if: always()
-      uses: actions/upload-artifact@v4
-      with:
-        name: ReportArtifact
-        path: \Report\TestReport.html
-        
-
+        path: '**/Screenshots'
         
