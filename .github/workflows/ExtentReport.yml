@@ -53,8 +53,13 @@ jobs:
       #run: ./NUnit.ConsoleRunner.${{env.ConsoleRunnerVersion}}/tools/nunit3-console.exe .\${{env.Test_Project_Path}}\bin\Debug\net48\${{env.Test_Project_DLL}} --result=".\reporting\TestResult.xml" --trace=verbose 
       continue-on-error: true
 
-    - name: List test-output directory
-      run: dir test-output || echo "test-output directory does not exist"
+    - name: List Reports directory
+      run: |
+        if (Test-Path ".\CanvasAutomationTests\Reports") {
+        Get-ChildItem -Path ".\CanvasAutomationTests\Reports" -Recurse
+        } else {
+        Write-Output "Reports directory does not exist"
+        }
 
     - name: Find all HTML files
       if: always()
@@ -67,8 +72,14 @@ jobs:
       with:
         name: ReportArtifact
    #     path: .\${{env.Test_Project_Path}}\bin\Debug\net48\Report
-        path: Reports/TestReport.html
-          
+        path: .\Reports\TestReport.html
+
+    - name: Upload screenshot as Artifact
+      if: always()
+      uses: actions/upload-artifact@v4
+      with:
+        name: ReportArtifact
+        path: .\Reports\Screenshots
         
   #  - name: Upload File as Artifact
  #     if: always()
