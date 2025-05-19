@@ -55,7 +55,7 @@ jobs:
     - name: Find Extent Report
       if: always()
       run: |
-        find . -type f -name '*index*.html'
+        find . -type f -name 'index.html'
         
     - name: Upload File as Artifact
       if: always()
