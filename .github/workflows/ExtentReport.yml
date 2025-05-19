@@ -62,8 +62,8 @@ jobs:
       uses: actions/upload-artifact@v4
       with:
         name: html-reports
-        path: |
-          $(cat html-files.txt)
+        path: test-output/index.html
+          
         
   #  - name: Upload File as Artifact
  #     if: always()
