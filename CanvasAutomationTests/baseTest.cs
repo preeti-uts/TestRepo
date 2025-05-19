@@ -24,7 +24,7 @@ namespace ExtentReport
         [OneTimeSetUp]
         public void Setup()
         {
-            string reportDirectory = Path.Combine(TestContext.CurrentContext.TestDirectory, "Report");
+            string reportDirectory = Path.Combine(TestContext.CurrentContext.WorkDirectory, "Report");
            string  screenshotLocation = Path.Combine(reportDirectory, "Screenshots");
             string reportName = "TestReport.html";
             string reportFilePath = Path.Combine(reportDirectory, reportName);
