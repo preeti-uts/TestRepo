@@ -26,12 +26,22 @@ namespace ExtentReport
 
         {
             string workingDirectory = Environment.CurrentDirectory;
-            string projectDirectory = Path.Combine(Directory.GetParent(workingDirectory).Parent.Parent.FullName, Report);
+            // Place the report in ./test-output inside the current repo workspace
+            string projectDirectory = Path.Combine(workingDirectory, "test-output");
             if (!Directory.Exists(projectDirectory)) Directory.CreateDirectory(projectDirectory);
-            String reportPath = projectDirectory + "//index.html";
+            string reportPath = Path.Combine(projectDirectory, "index.html");
+
             var htmlReporter = new ExtentSparkReporter(reportPath);
-            extent = new ExtentReports();
+               extent = new ExtentReports();
             extent.AttachReporter(htmlReporter);
+            
+            // string workingDirectory = Environment.CurrentDirectory;
+            // string projectDirectory = Path.Combine(Directory.GetParent(workingDirectory).Parent.Parent.FullName, Report);
+            // if (!Directory.Exists(projectDirectory)) Directory.CreateDirectory(projectDirectory);
+            // String reportPath = projectDirectory + "//index.html";
+            // var htmlReporter = new ExtentSparkReporter(reportPath);
+            // extent = new ExtentReports();
+            // extent.AttachReporter(htmlReporter);
         }
 
         [SetUp]
