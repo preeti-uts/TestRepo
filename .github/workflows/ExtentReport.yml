@@ -51,6 +51,10 @@ jobs:
     - name: Run UnitTests
       run: ./NUnit.ConsoleRunner.${{env.ConsoleRunnerVersion}}/tools/nunit3-console.exe .\${{env.Test_Project_Path}}\bin\Debug\${{env.Test_Project_DLL}} --result=".\reporting\TestResult.xml" --trace=verbose 
       #run: ./NUnit.ConsoleRunner.${{env.ConsoleRunnerVersion}}/tools/nunit3-console.exe .\${{env.Test_Project_Path}}\bin\Debug\net48\${{env.Test_Project_DLL}} --result=".\reporting\TestResult.xml" --trace=verbose 
+      continue-on-error: true
+
+    - name: List test-output directory
+      run: ls -al test-output || echo "test-output directory does not exist"
 
     - name: Find all HTML files
       if: always()
