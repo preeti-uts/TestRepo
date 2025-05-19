@@ -28,10 +28,15 @@ namespace ExtentReport
          public void SetUpExtentReport()
 {
     // Use a path relative to the repository root (current working directory)
-    string projectRoot = Directory.GetCurrentDirectory();
-    string reportsDir = Path.Combine(projectRoot, "Reports");
-    string screenshotsDir = Path.Combine(reportsDir, "Screenshots");
-
+    // string projectRoot = Directory.GetCurrentDirectory();
+    // string reportsDir = Path.Combine(projectRoot, "Reports");
+    // string screenshotsDir = Path.Combine(reportsDir, "Screenshots");
+// Define the full path for the HTML test report file
+     static public string reportDirectory = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Report");
+     static public string screenshotLocation = $@"{reportDirectory}\Screenshots\";
+     static public string reportName = "TestReport.html";
+     static public string reportFilePath = Path.Combine(reportDirectory, reportName);
+             
     // Assign to class-level variables if needed elsewhere
     reportDirectory = reportsDir;
     screenshotDirectory = screenshotsDir;
@@ -39,9 +44,6 @@ namespace ExtentReport
     // Ensure directories exist
     if (!Directory.Exists(reportDirectory)) Directory.CreateDirectory(reportDirectory);
     if (!Directory.Exists(screenshotDirectory)) Directory.CreateDirectory(screenshotDirectory);
-
-    // Define the full path for the HTML test report file
-    reportPath = Path.Combine(reportDirectory, "TestReport.html");
     Console.WriteLine("Extent report will be created at: " + reportPath);
 
     // Initialize the Spark Reporter with the defined report path
