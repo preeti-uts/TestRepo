@@ -2,11 +2,6 @@ name: ExtentReport - Common Workflow
 
 on:
   workflow_dispatch:
-    inputs:
-      test_scripts:
-        description: 'Comma-separated list of test scripts to run'
-        required: true
-        type: string
 
 jobs:
 
