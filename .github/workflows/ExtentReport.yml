@@ -50,7 +50,7 @@ jobs:
       
     - name: Run UnitTests
       run: ./NUnit.ConsoleRunner.${{env.ConsoleRunnerVersion}}/tools/nunit3-console.exe .\${{env.Test_Project_Path}}\bin\Debug\${{env.Test_Project_DLL}} --result=".\reporting\TestResult.xml" --trace=verbose 
-      #run: ./NUnit.ConsoleRunner.${{env.ConsoleRunnerVersion}}/tools/nunit3-console.exe .\${{env.Test_Project_Path}}\bin\Debug\net48\${{env.Test_Project_DLL}} --result=".\reporting\TestResult.xml" --trace=verbose 
+      
       continue-on-error: true
 
     - name: List Reports directory
@@ -71,19 +71,27 @@ jobs:
       uses: actions/upload-artifact@v4
       with:
         name: ReportArtifact
-   #     path: .\${{env.Test_Project_Path}}\bin\Debug\net48\Report
-        path: .\Report\TestReport.html
+        path: \Report\TestReport.html
 
-    - name: Upload screenshot as Artifact
+    # - name: Upload screenshot as Artifact
+    #   if: always()
+    #   uses: actions/upload-artifact@v4
+    #   with:
+    #     name: ReportArtifact
+    #     path: \Report\Screenshots
+        
+    - name: Upload Screenshot to GitHub log if any error occured
       if: always()
       uses: actions/upload-artifact@v4
       with:
-        name: ReportArtifact
-        path: .\Report\Screenshots
-        
+        name: screenshot
+        path: C:\Screenshots\*.png  
+
     - name: Upload File as Artifact
-      if: always()
       uses: actions/upload-artifact@v4
       with:
         name: ReportArtifact
         path: .\${{env.Test_Project_Path}}\bin\Debug\net48\Report
+        
+
+        
