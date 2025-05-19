@@ -53,6 +53,7 @@ jobs:
       #run: ./NUnit.ConsoleRunner.${{env.ConsoleRunnerVersion}}/tools/nunit3-console.exe .\${{env.Test_Project_Path}}\bin\Debug\net48\${{env.Test_Project_DLL}} --result=".\reporting\TestResult.xml" --trace=verbose 
 
     - name: Upload File as Artifact
+      if: always()
       uses: actions/upload-artifact@v4
       with:
         name: ReportArtifact
