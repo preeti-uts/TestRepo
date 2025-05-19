@@ -61,12 +61,12 @@ jobs:
       run: |
         find . -type f -name "*.html" > html-files.txt
 
-    - name: Upload HTML files as artifact
+    - name: Upload File as Artifact
       if: always()
       uses: actions/upload-artifact@v4
       with:
-        name: html-reports
-        path: test-output/index.html
+        name: ReportArtifact
+        path: .\${{env.Test_Project_Path}}\bin\Debug\net48\Report
           
         
   #  - name: Upload File as Artifact
