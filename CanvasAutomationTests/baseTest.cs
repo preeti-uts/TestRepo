@@ -14,7 +14,8 @@ using OpenQA.Selenium.Chrome;
 
 namespace ExtentReport
 {
-    public class baseTest
+    [TestFixture]
+    public class BaseTest
     {
         public ExtentReports extent;
         public ExtentTest test;
