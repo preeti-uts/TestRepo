@@ -35,9 +35,11 @@ jobs:
           & "C:\Program Files (x86)\NUnit.org\nunit-console\nunit3-console.exe" $testDll.FullName
 
       - name: List report directory for debugging
+        if: always()
         run: dir CanvasAutomationTests\Report
 
       - name: Upload Extent Report
+        if: always()
         uses: actions/upload-artifact@v4
         with:
           name: ExtentTestReport
