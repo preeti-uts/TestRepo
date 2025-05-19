@@ -26,7 +26,8 @@ namespace ExtentReport
 
         {
             string workingDirectory = Environment.CurrentDirectory;
-            string projectDirectory = Directory.GetParent(workingDirectory).Parent.Parent.FullName;
+            string projectDirectory = Path.Combine(Directory.GetParent(workingDirectory).Parent.Parent.FullName, Report);
+            if (!Directory.Exists(projectDirectory)) Directory.CreateDirectory(projectDirectory);
             String reportPath = projectDirectory + "//index.html";
             var htmlReporter = new ExtentSparkReporter(reportPath);
             extent = new ExtentReports();
