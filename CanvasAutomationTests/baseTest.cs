@@ -22,49 +22,47 @@ namespace ExtentReport
 
         //report file
         [OneTimeSetUp]
-        public void Setup()
+      public void Setup()
+       {
 
-        {
-         public void SetUpExtentReport()
-{
-    // Use a path relative to the repository root (current working directory)
-    // string projectRoot = Directory.GetCurrentDirectory();
-    // string reportsDir = Path.Combine(projectRoot, "Reports");
-    // string screenshotsDir = Path.Combine(reportsDir, "Screenshots");
-// Define the full path for the HTML test report file
-     static public string reportDirectory = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Report");
-     static public string screenshotLocation = $@"{reportDirectory}\Screenshots\";
-     static public string reportName = "TestReport.html";
-     static public string reportFilePath = Path.Combine(reportDirectory, reportName);
+        // Use a path relative to the repository root (current working directory)
+        // string projectRoot = Directory.GetCurrentDirectory();
+        // string reportsDir = Path.Combine(projectRoot, "Reports");
+        // string screenshotsDir = Path.Combine(reportsDir, "Screenshots");
+        // Define the full path for the HTML test report file
+         static public string reportDirectory = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Report");
+         static public string screenshotLocation = $@"{reportDirectory}\Screenshots\";
+         static public string reportName = "TestReport.html";
+         static public string reportFilePath = Path.Combine(reportDirectory, reportName);
              
-    // Assign to class-level variables if needed elsewhere
-    reportDirectory = reportsDir;
-    screenshotDirectory = screenshotsDir;
+        // Assign to class-level variables if needed elsewhere
+        reportDirectory = reportsDir;
+        screenshotDirectory = screenshotsDir;
 
-    // Ensure directories exist
-    if (!Directory.Exists(reportDirectory)) Directory.CreateDirectory(reportDirectory);
-    if (!Directory.Exists(screenshotDirectory)) Directory.CreateDirectory(screenshotDirectory);
-    Console.WriteLine("Extent report will be created at: " + reportPath);
+        // Ensure directories exist
+        if (!Directory.Exists(reportDirectory)) Directory.CreateDirectory(reportDirectory);
+        if (!Directory.Exists(screenshotDirectory)) Directory.CreateDirectory(screenshotDirectory);
+        Console.WriteLine("Extent report will be created at: " + reportPath);
 
-    // Initialize the Spark Reporter with the defined report path
-    var sparkReporter = new ExtentSparkReporter(reportPath)
-    {
-        Config =
+        // Initialize the Spark Reporter with the defined report path
+        var sparkReporter = new ExtentSparkReporter(reportPath)
         {
-            ReportName = "Canvas Integration Automation Test Report",
+            Config =
+            {
+                ReportName = "Canvas Integration Automation Test Report",
             TimeStampFormat = "yyyy-MM-dd HH:mm:ss"
-        }
-    };
+            }
+        };
 
-    // Initialize the main ExtentReports object and attach the Spark reporter
-    extent = new ExtentReports();
-    extent.AttachReporter(sparkReporter);
+        // Initialize the main ExtentReports object and attach the Spark reporter
+        extent = new ExtentReports();
+        extent.AttachReporter(sparkReporter);
 
-    // Add metadata/system information to the report
-    extent.AddSystemInfo("Operating System", Environment.OSVersion.ToString());
-    extent.AddSystemInfo("Host Name", Environment.MachineName);
-}
-        }
+        // Add metadata/system information to the report
+        extent.AddSystemInfo("Operating System", Environment.OSVersion.ToString());
+        extent.AddSystemInfo("Host Name", Environment.MachineName);
+       }
+        
 
         [SetUp]
         public void startBrowser()
@@ -84,7 +82,7 @@ namespace ExtentReport
         }
    
 
-        [TearDown]
+        [OneTimeTearDown]
         public void AfterTest()
 
         {
