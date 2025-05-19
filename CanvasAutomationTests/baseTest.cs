@@ -25,23 +25,43 @@ namespace ExtentReport
         public void Setup()
 
         {
-            string workingDirectory = Environment.CurrentDirectory;
-            // Place the report in ./test-output inside the current repo workspace
-            string projectDirectory = Path.Combine(workingDirectory, "test-output");
-            if (!Directory.Exists(projectDirectory)) Directory.CreateDirectory(projectDirectory);
-            string reportPath = Path.Combine(projectDirectory, "index.html");
+         public void SetUpExtentReport()
+{
+    // Use a path relative to the repository root (current working directory)
+    string projectRoot = Directory.GetCurrentDirectory();
+    string reportsDir = Path.Combine(projectRoot, "Reports");
+    string screenshotsDir = Path.Combine(reportsDir, "Screenshots");
 
-            var htmlReporter = new ExtentSparkReporter(reportPath);
-               extent = new ExtentReports();
-            extent.AttachReporter(htmlReporter);
-            
-            // string workingDirectory = Environment.CurrentDirectory;
-            // string projectDirectory = Path.Combine(Directory.GetParent(workingDirectory).Parent.Parent.FullName, Report);
-            // if (!Directory.Exists(projectDirectory)) Directory.CreateDirectory(projectDirectory);
-            // String reportPath = projectDirectory + "//index.html";
-            // var htmlReporter = new ExtentSparkReporter(reportPath);
-            // extent = new ExtentReports();
-            // extent.AttachReporter(htmlReporter);
+    // Assign to class-level variables if needed elsewhere
+    reportDirectory = reportsDir;
+    screenshotDirectory = screenshotsDir;
+
+    // Ensure directories exist
+    if (!Directory.Exists(reportDirectory)) Directory.CreateDirectory(reportDirectory);
+    if (!Directory.Exists(screenshotDirectory)) Directory.CreateDirectory(screenshotDirectory);
+
+    // Define the full path for the HTML test report file
+    reportPath = Path.Combine(reportDirectory, "TestReport.html");
+    Console.WriteLine("Extent report will be created at: " + reportPath);
+
+    // Initialize the Spark Reporter with the defined report path
+    var sparkReporter = new ExtentSparkReporter(reportPath)
+    {
+        Config =
+        {
+            ReportName = "Canvas Integration Automation Test Report",
+            TimeStampFormat = "yyyy-MM-dd HH:mm:ss"
+        }
+    };
+
+    // Initialize the main ExtentReports object and attach the Spark reporter
+    extent = new ExtentReports();
+    extent.AttachReporter(sparkReporter);
+
+    // Add metadata/system information to the report
+    extent.AddSystemInfo("Operating System", Environment.OSVersion.ToString());
+    extent.AddSystemInfo("Host Name", Environment.MachineName);
+}
         }
 
         [SetUp]
