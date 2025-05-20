@@ -26,13 +26,10 @@ jobs:
       - name: Build solution
         run: msbuild /p:Configuration=Release
 
-      - name: Run tests with NUnit
+      - name: Run tests
         run: |
-          mkdir Results
-          # Find the test DLL (adjust path if needed)
-          $testDll = Get-ChildItem -Path . -Recurse -Filter "*.dll" | Where-Object { $_.FullName -match "CanvasAutomationTests" -and $_.FullName -notmatch "ref\\" } | Select-Object -First 1
-          if ($null -eq $testDll) { Write-Error "Test DLL not found!"; exit 1 }
-          & "C:\Program Files (x86)\NUnit.org\nunit-console\nunit3-console.exe" $testDll.FullName
+            mkdir TestResults
+            vstest.console.exe CanvasAutomationTests\bin\Release\CanvasAutomationTests.dll /Logger:trx
 
       - name: List report directory for debugging
         if: always()
