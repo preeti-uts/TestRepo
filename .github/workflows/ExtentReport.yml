@@ -43,4 +43,4 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: ExtentTestReport
-          path: CanvasAutomationTests/Report/TestReport.html
+          path: CanvasAutomationTests/TestResults
