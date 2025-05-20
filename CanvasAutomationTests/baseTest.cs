@@ -21,23 +21,24 @@ namespace ExtentReport
         public ExtentTest test;
         ChromeDriver driver;
 
-        // In Setup(), initialize them in the correct order
+        // In Setup(), initialize them in the correct order  
         [OneTimeSetUp]
         public void Setup()
         {
-            string reportDirectory = Path.Combine(TestContext.CurrentContext.WorkDirectory, "Report");
-           string  screenshotLocation = Path.Combine(reportDirectory, "Screenshots");
-            string reportName = "TestReport.html";
-            string reportFilePath = Path.Combine(reportDirectory, reportName);
-            Console.WriteLine(reportFilePath);
+            string baseDir = Path.GetFullPath(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, @"..\..\..\TestResults"));
+            string reportDirectory = Path.Combine(baseDir, "Report");
+            string screenshotLocation = Path.Combine(baseDir, "Screenshots");
 
-            // Ensure directories exist
-            if (!Directory.Exists(reportDirectory)) Directory.CreateDirectory(reportDirectory);
-            if (!Directory.Exists(screenshotLocation)) Directory.CreateDirectory(screenshotLocation);
-            Console.WriteLine("Extent report will be created at: " + reportFilePath);
+            Console.WriteLine(reportDirectory);
 
-            // Initialize the Spark Reporter with the defined report path
-            var sparkReporter = new ExtentSparkReporter(reportFilePath)
+            // Ensure directories exist  
+            Console.WriteLine("Extent report will be created at: " + baseDir);
+
+            // Corrected the instantiation of ExtentReports  
+            extent = new ExtentReports();
+
+            // Initialize the Spark Reporter with the defined report path  
+            var sparkReporter = new ExtentSparkReporter(reportDirectory)
             {
                 Config =
                 {
@@ -46,23 +47,20 @@ namespace ExtentReport
                 }
             };
 
-            // Initialize the main ExtentReports object and attach the Spark reporter
-            extent = new ExtentReports();
+            // Initialize the main ExtentReports object and attach the Spark reporter  
             extent.AttachReporter(sparkReporter);
 
-            // Add metadata/system information to the report
+            // Add metadata/system information to the report  
             extent.AddSystemInfo("Operating System", Environment.OSVersion.ToString());
             extent.AddSystemInfo("Host Name", Environment.MachineName);
         }
-          
-        
 
         [SetUp]
         public void startBrowser()
         {
-            //start the test
+            //start the test  
             test = extent.CreateTest(TestContext.CurrentContext.Test.Name);
-            //Intialise the browser
+            //Intialise the browser  
             driver = new ChromeDriver();
             driver.Manage().Window.Maximize();
         }
@@ -70,14 +68,12 @@ namespace ExtentReport
         [Test]
         public void launchBrowser()
         {
-            //launch the browser and navigate to the URL
-            driver.Navigate().GoToUrl("https://google.com"); // Replace with actual URL
+            //launch the browser and navigate to the URL  
+            driver.Navigate().GoToUrl("https://google.com"); // Replace with actual URL  
         }
-   
 
         [OneTimeTearDown]
         public void AfterTest()
-
         {
             var status = TestContext.CurrentContext.Result.Outcome.Status;
             var stackTrace = TestContext.CurrentContext.Result.StackTrace;
@@ -87,14 +83,12 @@ namespace ExtentReport
 
             if (status == TestStatus.Failed)
             {
-
                 test.Fail("Test failed", captureScreenShot(driver, fileName));
                 test.Log(Status.Fail, "test failed with logtrace" + stackTrace);
-
             }
             else if (status == TestStatus.Passed)
             {
-                test.Pass("Test passed", captureScreenShot(driver, fileName));  
+                test.Pass("Test passed", captureScreenShot(driver, fileName));
             }
 
             extent.Flush();

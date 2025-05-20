@@ -40,4 +40,9 @@
     </None>
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="NewFolder\" />
+    <Folder Include="TestResults\" />
+  </ItemGroup>
+
 </Project>
