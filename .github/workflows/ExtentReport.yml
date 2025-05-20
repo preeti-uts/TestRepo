@@ -27,8 +27,8 @@ jobs:
         run: msbuild /p:Configuration=Release
 
       - name: Run UnitTests
-        run: ./NUnit.ConsoleRunner.${{env.ConsoleRunnerVersion}}/tools/nunit3-console.exe 
-
+        run:    ./packages/NUnit.ConsoleRunner.3.11.1/tools/nunit3-console.exe CanvasAutomationTests/bin/Release/CanvasAutomationTests.dll
+   
       - name: List report directory for debugging
         if: always()
         run: dir CanvasAutomationTests\Report
