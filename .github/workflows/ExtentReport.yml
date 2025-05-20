@@ -20,17 +20,21 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
 
-      - name: Setup NuGet
-        uses: NuGet/setup-nuget@v2
-
-      - name: Restore NuGet packages
-        run: nuget restore
-
-      - name: Setup MSBuild
+       # Add  MSBuild to the PATH: https://github.com/microsoft/setup-msbuild
+      - name: Setup MSBuild.exe
         uses: microsoft/setup-msbuild@v2
-
+      
+      - name: Setup NuGet
+        uses: NuGet/setup-nuget@v2.0.0
+      
+      - name: Restore Packages
+        run: nuget restore $Solution_Name
+      
       - name: Build solution
-        run: msbuild /p:Configuration=Release
+        run: msbuild $Solution_Name -t:rebuild -property:Configuration=Debug 
+        
+      - name: Install NUnit.ConsoleRunner
+        run: nuget install NUnit.ConsoleRunner -Version ${{env.ConsoleRunnerVersion}} -DirectDownload -OutputDirectory .
 
       - name: Run UnitTests
         run: ./NUnit.ConsoleRunner.${{env.ConsoleRunnerVersion}}/tools/nunit3-console.exe  .\${{env.Test_Project_Path}}\bin\Debug\net48\${{env.Test_Project_DLL}} --result=".\reporting\TestResult.xml"
