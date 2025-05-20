@@ -5,7 +5,13 @@ on:
     branches: [ main ]
   pull_request:
     branches: [ main ]
-
+# Test script / project variables
+env:
+      ConsoleRunnerVersion: 3.17.0
+      TestFolder_Name: BP_Admissions
+      Solution_Name: ExtentReportDummyRepo.sln
+      Test_Project_Path: CanvasAutomationTests
+      Test_Project_DLL: ExtentReportDummyRepo.dll
 jobs:
   build-and-test:
     runs-on: windows-latest
@@ -27,7 +33,7 @@ jobs:
         run: msbuild /p:Configuration=Release
 
       - name: Run UnitTests
-        run:    ./packages/NUnit.ConsoleRunner.3.11.1/tools/nunit3-console.exe CanvasAutomationTests/bin/Release/CanvasAutomationTests.dll
+        run: ./NUnit.ConsoleRunner.${{env.ConsoleRunnerVersion}}/tools/nunit3-console.exe  .\${{env.Test_Project_Path}}\bin\Debug\net48\${{env.Test_Project_DLL}} --result=".\reporting\TestResult.xml"
    
       - name: List report directory for debugging
         if: always()
