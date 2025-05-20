@@ -27,7 +27,7 @@ jobs:
         run: msbuild /p:Configuration=Release
 
       - name: Run UnitTests
-        run: ./NUnit.ConsoleRunner.${{env.ConsoleRunnerVersion}}/tools/nunit3-console.exe  .\${{CanvasAutomationTests}}\bin\Debug\net48\${{CanvasAutomationTests.dll}} --result=".\reporting\TestResult.xml" --trace=verbose --where "name == ${{ inputs.scriptChoice }}"
+        run: ./NUnit.ConsoleRunner.${{env.ConsoleRunnerVersion}}/tools/nunit3-console.exe 
 
       - name: List report directory for debugging
         if: always()
