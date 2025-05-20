@@ -72,3 +72,10 @@ jobs:
       with:
         name: ExtentReport
         path: .\${{env.Test_Project_Path}}/index.html
+
+    - name: Upload Extent Report
+      if: always()
+      uses: actions/upload-artifact@v4
+      with:
+        name: ExtentReport
+        path:  CanvasAutomationTests/TestResults
